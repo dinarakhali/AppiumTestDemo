@@ -35,7 +35,9 @@ public class AppTest {
         step("Нажимаем на Notification", appPage::clickNotificationBtn);
         step("Нажимаем на Incoming Message", appPage::clickIncMessage);
 
-        assertTrue(appPage.isDenyVisible(), "Запрос на разрешение уведомлений не получен");
+        step("Проверяем результат: кнопка отказа видна в уведомлении", () -> {
+            assertTrue(appPage.isDenyVisible(), "Запрос на разрешение уведомлений не получен");
+                });
         step("Нажимаем 'Отказать' в запросе разрешения", appPage::clickDeny);
     }
 
@@ -52,7 +54,9 @@ public class AppTest {
         step("Нажимаем на Popup Menu", viewPage::clickPopupMenuBtn);
         step("Нажимаем на Popup", viewPage::clickMakePopupBtn);
         step("Нажимаем на Add", viewPage::clickAddBtn);
-        assertTrue(viewPage.isPopupVisible(), "Toast popup не появился");
+        step("Проверяем результат: появился popup", () -> {
+            assertTrue(viewPage.isPopupVisible(), "Toast popup не появился");
+        });
     }
 
     @Test
@@ -66,7 +70,9 @@ public class AppTest {
         mainPage.clickViewBtn();
         step("Нажимаем на Drag and drop", viewPage::clickDragDropBtn);
         step("Перетаскиваем элемент", viewPage::dragAndDrop);
-        assertEquals("Dropped!", viewPage.isResultTextContains(), "Drag n Drop не сработал");
+        step("Проверяем результат: появилось сообщение 'Dropped!'", () -> {
+            assertEquals("Dropped!", viewPage.isResultTextContains(), "Drag n Drop не сработал");
+        });
     }
 
     @AfterEach
